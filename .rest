@@ -1,0 +1,15 @@
+# POST http://localhost:8080/recipes
+# Content-Type: application/json
+
+# {
+#     "title": "chocolate yum yum"
+# }
+
+
+# GET http://localhost:8080/recipe/19
+
+
+GET http://localhost:8080/recipes
+
+
+
