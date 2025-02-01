@@ -2,20 +2,33 @@
 
 @baseUrl = http://localhost:3000
 
-POST {{baseUrl}}/recipes
+# RECIPES-----------------------------------
+POST {{baseUrl}}/recipe HTTP/1.1
 Content-Type: application/json
+
 {
-    "title": "chocolate yum yum"
+    "title": "Blueberry Muffins"
 }
-###
 
-GET {{baseUrl}}/recipe/19
 ###
-
+GET {{baseUrl}}/recipe/7
+###
 GET {{baseUrl}}/recipes
-
 ###
-GET {{baseUrl}}/ingredients
 
+#-----------------------------------
+# INGREDIENTS
+GET {{baseUrl}}/recipe/2/ingredients
+###
+GET {{baseUrl}}/ingredient/6
+###
+POST {{baseUrl}}/recipe/2/ingredient HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "bell pepper",
+    "quantity": 8,
+    "unit": "oz"
+}
 
 

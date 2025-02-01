@@ -19,10 +19,10 @@ const pool = mysql
  * @returns {Promise<Array>} Array of recipe objects from the database
  * @throws {Error} If database query fails
  */
-export async function getRecipes() {
-  const [rows] = await pool.query("select * from recipes");
+export const getRecipes = async () => {
+  const [rows] = await pool.query("SELECT * FROM recipes");
   return rows;
-}
+};
 
 /**
  * Retrieves a single recipe from the database by ID
@@ -31,7 +31,7 @@ export async function getRecipes() {
  * @returns {Promise<Object|undefined>} Recipe object if found, undefined if not found
  * @throws {Error} If database query fails
  */
-export async function getRecipe(id) {
+export const getRecipe = async (id) => {
   const [rows] = await pool.query(
     `SELECT *
         FROM recipes
@@ -39,9 +39,8 @@ export async function getRecipe(id) {
     [id]
   );
   return rows[0];
-}
+};
 
-//
 /**
  * Creates a new recipe in the database
  * @param {string} title - The title of the recipe to create
@@ -49,7 +48,7 @@ export async function getRecipe(id) {
  * @throws {Error} If the database query fails
  * @async
  */
-export async function createRecipe(title) {
+export const createRecipe = async (title) => {
   const [result] = await pool.query(
     `INSERT INTO 
      recipes 
@@ -60,4 +59,91 @@ export async function createRecipe(title) {
 
   const id = result.insertId;
   return await getRecipe(id);
-}
+};
+
+/**
+ *
+ * @param {*} recipeId
+ * @returns
+ */
+export const getIngredients = async (recipeId) => {
+  const [rows] = await pool.query(
+    `SELECT * 
+        FROM ingredients 
+        WHERE recipe_id = ?`,
+    [recipeId]
+  );
+  return rows;
+};
+
+export const getIngredient = async (ingredientId) => {
+  const [rows] = await pool.query(
+    `SELECT * 
+        FROM ingredients 
+        WHERE id = ?`,
+    [ingredientId]
+  );
+  return rows[0];
+};
+
+export const createIngredient = async (recipeId, name, quantity, unit) => {
+  const [result] = await pool.query(
+    `INSERT INTO 
+     ingredients 
+     (recipe_id, name, quantity, unit) 
+     VALUES (?, ?, ?, ?)`,
+    [recipeId, name, quantity, unit]
+  );
+
+  const id = result.insertId;
+  return await getIngredient(id);
+};
+
+export const getInstructions = async (recipeId) => {
+  const [rows] = await pool.query(
+    `SELECT * 
+        FROM instructions 
+        WHERE recipe_id = ?`,
+    [recipeId]
+  );
+  return rows;
+};
+
+export const getInstruction = async (instructionId) => {
+  const [rows] = await pool.query(
+    `SELECT * 
+        FROM instructions 
+        WHERE id = ?`,
+    [instructionId]
+  );
+  return rows[0];
+};
+
+export const createInstruction = async (recipeId, step_number, description) => {
+  const [result] = await pool.query(
+    `INSERT INTO 
+     instructions 
+     (recipe_id, step_number, description) 
+     VALUES (?, ?, ?)`,
+    [recipeId, step_number, description]
+  );
+
+  const id = result.insertId;
+  return await getInstruction(id);
+};
+
+// const recipe1 = await createRecipe('Cookies');
+// await createIngredient(recipe1.id, 'flour', 1, 'cup');
+// await createIngredient(recipe1.id, 'sugar', .5, 'cup');
+// await createIngredient(recipe1.id, 'eggs', 2, '');
+
+// const recipe2 = await createRecipe('Chili');
+// await createIngredient(recipe2.id, 'beef', 1, 'lb');
+// await createIngredient(recipe2.id, 'beans', 1, 'can');
+// await createIngredient(recipe2.id, 'tomatoes', 1, 'can');
+// await createIngredient(recipe2.id, 'onion', 1, 'cup');
+
+// let ingredients = await getIngredients(recipe1.id);
+// console.log(ingredients);
+// ingredients = await getIngredients(recipe2.id);
+// console.log(ingredients);

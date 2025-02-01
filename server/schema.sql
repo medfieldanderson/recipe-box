@@ -1,3 +1,4 @@
+DROP DATABASE dinner_app;
 CREATE DATABASE dinner_app;
 USE dinner_app;
 
@@ -12,7 +13,7 @@ CREATE TABLE ingredients (
     recipe_id INTEGER,
     name VARCHAR(255) NOT NULL,
     quantity VARCHAR(255) NOT NULL,
-    unit VARCHAR(50) NOT NULL,
+    unit VARCHAR(50),
     FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 );
 
@@ -23,7 +24,10 @@ CREATE TABLE instructions (
     description TEXT NOT NULL,
     FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 );
-INSERT INTO recipes (title)
-VALUES 
-('chili'),
-('chicken fajitas');
+-- INSERT INTO recipes (title)
+-- VALUES 
+-- ('chili');
+
+-- INSERT INTO recipes (title)
+-- VALUES 
+-- ('chicken fajitas');
