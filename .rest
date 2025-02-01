@@ -14,5 +14,8 @@ GET {{baseUrl}}/recipe/19
 
 GET {{baseUrl}}/recipes
 
+###
+GET {{baseUrl}}/ingredients
+
 
 
