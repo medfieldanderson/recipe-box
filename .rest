@@ -1,15 +1,18 @@
-POST http://localhost:8080/recipes
-Content-Type: application/json
+# CTRL + SHIFT + o to navigate to the request
 
+@baseUrl = http://localhost:3000
+
+POST {{baseUrl}}/recipes
+Content-Type: application/json
 {
     "title": "chocolate yum yum"
 }
 ###
 
-GET http://localhost:8080/recipe/19
+GET {{baseUrl}}/recipe/19
 ###
 
-GET http://localhost:8080/recipes
+GET {{baseUrl}}/recipes
 
 
 

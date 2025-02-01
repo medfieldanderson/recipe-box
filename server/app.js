@@ -2,7 +2,7 @@
 import express from "express";
 import { createRecipe, getRecipe, getRecipes } from "./database.js";
 
-const portNum = 8080;
+const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
@@ -29,6 +29,6 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke.");
 });
 
-app.listen(portNum, () => {
-  console.log(`Server is running on port ${portNum}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
