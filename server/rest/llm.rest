@@ -1,0 +1,36 @@
+@baseUrl = http://192.168.86.39:1234
+
+# RECIPES-----------------------------------
+POST {{baseUrl}}/v1/chat/completions HTTP/1.1
+Content-Type: application/json
+
+{
+    "messages": [
+      {
+        "role": "user",
+        "content": "List common units of measurement used in recipes"
+      }
+    ]
+}
+
+###
+POST {{baseUrl}}/v1/embeddings HTTP/1.1
+Content-Type: application/json
+
+{
+    "input": "Units of measurement used in recipes"    
+}
+
+
+###
+POST {{baseUrl}}/v1/chat/completions HTTP/1.1
+Content-Type: application/json
+
+{
+    "messages": [
+      {
+        "role": "assistant",
+        "content": "List common units of measurement used in recipes"
+      }
+    ]
+}
