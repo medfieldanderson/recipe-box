@@ -1,0 +1,22 @@
+{
+  "name": "recipe-box",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "start": "cd server && npm start",
+    "build": "cd client && npm install && npm run build && cd ../server && npm install",
+    "heroku-postbuild": "npm run build"
+  },
+  "engines": {
+    "node": "20.x",
+    "npm": "10.x"
+  },
+  "cacheDirectories": [
+    "client/node_modules",
+    "server/node_modules"
+  ]
+}
