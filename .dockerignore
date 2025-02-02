@@ -1,0 +1,5 @@
+# filepath: /d:/dev/recipe-box/.dockerignore
+node_modules
+dist
+.git
+.vscode
