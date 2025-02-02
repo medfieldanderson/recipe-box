@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "server",
-    "client"
+    "client",
+    "server"
   ],
   "scripts": {
     "start": "cd server && npm start",
@@ -14,9 +14,5 @@
   "engines": {
     "node": "^20.17.0",
     "npm": ">=11.0.0"
-  },
-  "cacheDirectories": [
-    "client/node_modules",
-    "server/node_modules"
-  ]
+  }
 }
