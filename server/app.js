@@ -1,5 +1,6 @@
 // https://youtu.be/Hej48pi_lOc?si=7h5G6JuFMXghwW14
 import express from "express";
+import cors from "cors";
 import {
   createRecipe,
   getRecipes,
@@ -11,11 +12,13 @@ import {
   getInstructions,
   getInstruction,
 } from "./database.js";
+import { parse } from "dotenv";
 
 const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.post("/recipe", async (req, res) => {
   const { title } = req.body;
@@ -68,8 +71,11 @@ app.get("/instruction/:instructionId", async (req, res) => {
 
 app.post("/recipe/:recipeId/instruction", async (req, res) => {
   const recipeId = parseInt(req.params.recipeId);
-  const { description } = req.body;
-  const instruction = await createInstruction(recipeId, description);
+  console.log("recipeId", recipeId);
+  const {step, description } = req.body;
+  console.log("step", step);
+  console.log("description", description);
+  const instruction = await createInstruction(recipeId, step, description);
   res.send(instruction);
 });
   

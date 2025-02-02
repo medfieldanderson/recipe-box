@@ -119,13 +119,13 @@ export const getInstruction = async (instructionId) => {
   return rows[0];
 };
 
-export const createInstruction = async (recipeId, step_number, description) => {
+export const createInstruction = async (recipeId, step, description) => {
   const [result] = await pool.query(
     `INSERT INTO 
      instructions 
-     (recipe_id, step_number, description) 
+     (recipe_id, step, description) 
      VALUES (?, ?, ?)`,
-    [recipeId, step_number, description]
+    [recipeId, step, description]
   );
 
   const id = result.insertId;

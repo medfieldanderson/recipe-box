@@ -10,7 +10,7 @@ CREATE TABLE recipes (
 
 CREATE TABLE ingredients (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    recipe_id INTEGER,
+    recipe_id INTEGER NOT NULL,
     name VARCHAR(255) NOT NULL,
     quantity VARCHAR(255) NOT NULL,
     unit VARCHAR(50),
@@ -19,8 +19,8 @@ CREATE TABLE ingredients (
 
 CREATE TABLE instructions (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    recipe_id INTEGER,
-    step_number INTEGER NOT NULL,
+    recipe_id INTEGER NOT NULL,
+    step INTEGER NOT NULL,
     description TEXT NOT NULL,
     FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 );
