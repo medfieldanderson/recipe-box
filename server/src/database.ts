@@ -1,5 +1,5 @@
 // https://youtu.be/Hej48pi_lOc?si=7h5G6JuFMXghwW14
-import mysql from "mysql2";
+import mysql, { ResultSetHeader }from "mysql2";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -20,7 +20,7 @@ const pool = mysql
  * @throws {Error} If database query fails
  */
 export const getRecipes = async () => {
-  const [rows] = await pool.query("SELECT * FROM recipes");
+  const [rows] = await pool.query<ResultSetHeader>("SELECT * FROM recipes");
   return rows;
 };
 
@@ -31,8 +31,8 @@ export const getRecipes = async () => {
  * @returns {Promise<Object|undefined>} Recipe object if found, undefined if not found
  * @throws {Error} If database query fails
  */
-export const getRecipe = async (id) => {
-  const [rows] = await pool.query(
+export const getRecipe = async (id: number) => {
+  const [rows] = await pool.query<ResultSetHeader[]>(
     `SELECT *
         FROM recipes
         WHERE id = ?`,
@@ -48,8 +48,8 @@ export const getRecipe = async (id) => {
  * @throws {Error} If the database query fails
  * @async
  */
-export const createRecipe = async (title) => {
-  const [result] = await pool.query(
+export const createRecipe = async (title: string) => {
+  const [result] = await pool.query<ResultSetHeader>(
     `INSERT INTO 
      recipes 
      (title) 
@@ -66,8 +66,8 @@ export const createRecipe = async (title) => {
  * @param {*} recipeId
  * @returns
  */
-export const getIngredients = async (recipeId) => {
-  const [rows] = await pool.query(
+export const getIngredients = async (recipeId: number) => {
+  const [rows] = await pool.query<ResultSetHeader>(
     `SELECT * 
         FROM ingredients 
         WHERE recipe_id = ?`,
@@ -76,8 +76,8 @@ export const getIngredients = async (recipeId) => {
   return rows;
 };
 
-export const getIngredient = async (ingredientId) => {
-  const [rows] = await pool.query(
+export const getIngredient = async (ingredientId: number) => {
+  const [rows] = await pool.query<ResultSetHeader[]>(
     `SELECT * 
         FROM ingredients 
         WHERE id = ?`,
@@ -86,8 +86,13 @@ export const getIngredient = async (ingredientId) => {
   return rows[0];
 };
 
-export const createIngredient = async (recipeId, name, quantity, unit) => {
-  const [result] = await pool.query(
+export const createIngredient = async (
+  recipeId: number,
+  name: string,
+  quantity: number,
+  unit: string
+) => {
+  const [result] = await pool.query<ResultSetHeader>(
     `INSERT INTO 
      ingredients 
      (recipe_id, name, quantity, unit) 
@@ -99,7 +104,7 @@ export const createIngredient = async (recipeId, name, quantity, unit) => {
   return await getIngredient(id);
 };
 
-export const getInstructions = async (recipeId) => {
+export const getInstructions = async (recipeId: number) => {
   const [rows] = await pool.query(
     `SELECT * 
         FROM instructions 
@@ -109,8 +114,8 @@ export const getInstructions = async (recipeId) => {
   return rows;
 };
 
-export const getInstruction = async (instructionId) => {
-  const [rows] = await pool.query(
+export const getInstruction = async (instructionId: number) => {
+  const [rows] = await pool.query<ResultSetHeader[]>(
     `SELECT * 
         FROM instructions 
         WHERE id = ?`,
@@ -119,7 +124,7 @@ export const getInstruction = async (instructionId) => {
   return rows[0];
 };
 
-export const createInstruction = async (recipeId, step, description) => {
+export const createInstruction = async (recipeId: number, step: number, description: string) => {
   const [result] = await pool.query(
     `INSERT INTO 
      instructions 
@@ -128,6 +133,7 @@ export const createInstruction = async (recipeId, step, description) => {
     [recipeId, step, description]
   );
 
+  // @ts-ignore
   const id = result.insertId;
   return await getInstruction(id);
 };

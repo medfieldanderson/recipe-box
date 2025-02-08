@@ -1,26 +1,28 @@
-# CTRL + SHIFT + o to navigate to the request
-
 @baseUrl = http://localhost:3000
 
-# RECIPES-----------------------------------
+@name=create-new-recipe
 POST {{baseUrl}}/recipe HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "Hamburger Sliders"
+    "title": "Beef Tacos"
 }
 
 ###
-GET {{baseUrl}}/recipe/7
-###
-GET {{baseUrl}}/recipes
-###
 
-#-----------------------------------
-# INGREDIENTS
+@name=get-recipe
+GET {{baseUrl}}/recipe/7
+
+###
+@name=GetRecipes
+GET {{baseUrl}}/recipes
+
+###
 GET {{baseUrl}}/recipe/2/ingredients
+
 ###
 GET {{baseUrl}}/ingredient/6
+
 ###
 POST {{baseUrl}}/recipe/1/ingredient HTTP/1.1
 Content-Type: application/json
@@ -49,3 +51,4 @@ Content-Type: application/json
 }
 
 
+# CTRL + SHIFT + o to navigate to the request

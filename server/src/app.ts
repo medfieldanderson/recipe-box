@@ -1,5 +1,5 @@
 // https://youtu.be/Hej48pi_lOc?si=7h5G6JuFMXghwW14
-import express from "express";
+import express, {Request, Response, NextFunction} from "express";
 import cors from "cors";
 import {
   createRecipe,
@@ -32,7 +32,7 @@ app.get("/recipes", async (req, res) => {
 });
 
 app.get("/recipe/:id", async (req, res) => {
-  const recipeId = req.params.id;
+  const recipeId = parseInt(req.params.id);
   const recipe = await getRecipe(recipeId);
   res.send(recipe);
 });
@@ -80,7 +80,7 @@ app.post("/recipe/:recipeId/instruction", async (req, res) => {
 });
   
 
-app.use((err, req, res, next) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).send("Something broke.");
 });
